@@ -11,9 +11,13 @@ COPY . .
 CMD ["npm","run","build"]
 
 
-FROM nginx
 
+# Stage 2: Serve the build directory using Nginx
+FROM nginx:1.30-alpine
 COPY --from=builder /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+
 
 
 
